@@ -9,13 +9,13 @@ window.onload = function () {
       correctSelections++;
       $("#result").show();
       $("#result").text(`Good Job!!!`);
-      $("#score").html(`Corerct Answers: ${correctSelections} <br> Wrong answers: ${wrongSelections}`);
+      $("#score").html(`Corerct Answers: ${correctSelections} <br> Wrong Answers: ${wrongSelections}`);
     }
     else {
       wrongSelections++;
       $("#result").show();
       $("#result").text(`Wrong!!!`);
-      $("#score").html(`Corerct Answers: ${correctSelections} <br> Wrong answers: ${wrongSelections}`);
+      $("#score").html(`Corerct Answers: ${correctSelections} <br> Wrong Answers: ${wrongSelections}`);
     }
     questionNumber++;
     $("#questionAndAnswersDiv").hide();
@@ -63,13 +63,6 @@ function createQuestion(questionAsked, option1, option2, option3, option4, corre
   return question;
 }
 
-
-function displayQuestion() {
-  questionArray[questionNumber].display();
-}
-
-
-
 var question0 = createQuestion("What is the name of the country that Black Panther is from?", "Wakanda", "Nigeria", "Kenya", "Dunbar", "A");
 var question1 = createQuestion("What are the king's guards called?", "King's gurd", "Trusted Ones", "Dora Milaje", "Night's Watch", "C");
 var question2 = createQuestion("What is the name of the metal that is vital for the survival of the Black Panther's kingdom?", "Circanium", "Copper", "Silicon", "Vibranium", "D");
@@ -85,33 +78,30 @@ var questionArray = [question0, question1, question2, question3, question4, ques
 
 function begin() {
   questionNumber = 0;
+  stopwatch.stop();
+  stopwatch.reset();
+  stopwatch.start();
   questionArray[questionNumber].display();
   $("#start").hide();
+  $("#result").empty();
+  $("#score").empty();
   $("#questionAndAnswersDiv").show();
-  stopwatch.start();
+
 }
 
 
 var timeInterval;
-
 var clockRunning = false;
 
 //  Our stopwatch object.
 var stopwatch = {
-
   time: 30,
-
-
-
   reset: function () {
-
     stopwatch.time = 30;
     $("#display").text("00:30");
-
   },
 
   start: function () {
-
     if (!clockRunning) {
       clearInterval(timeInterval);
       timeInterval = setInterval(stopwatch.decrament, 1000);
@@ -130,58 +120,41 @@ var stopwatch = {
     var convertedTime = stopwatch.timeConverter(stopwatch.time);
     $("#display").text(convertedTime);
     if (stopwatch.time === 0) {
-      wrongSelections++;
-      questionNumber++;
+    wrongSelections++;
+    questionNumber++;
     $("#questionAndAnswersDiv").hide();
-    $("#result").show();
-    $("#result").text(`Sorry you ran out of time`);
-    $("#score").html(`Corerct Answers: ${correctSelections} <br> Wrong answers: ${wrongSelections}`);
-    setTimeout(displayNextQuestion, 3000);
-
-      // stopwatch.reset();
-      // questionNumber++;
-      // questionArray[questionNumber].display();
-      // wrongSelections++;
-      
-      // $("#result").show();
-      // $("#result").text(`ooops you ran out of time!`);
-      // $("#score").html(`Correct Answers: ${correctSelections} <br> Wrong answers: ${wrongSelections}`);
-      // $("#result").text(`ooops you ran out of time!`);
-      // $("#score").html(`Correct Answers: ${correctSelections} <br> Wrong answers: ${wrongSelections}`);
+      if (questionArray.length > questionNumber) {
+        $("#result").show();
+        $("#result").text(`Sorry you ran out of time`);
+        $("#score").html(`Corerct Answers: ${correctSelections} <br> Wrong Answers: ${wrongSelections}`);
+        setTimeout(displayNextQuestion, 3000);
+      }
+      else {
+        correctSelections = 0;
+        wrongSelections = 0;
+        $("#result").text("Great, Want to play again?");
+        $("#start").show();
+      }
     }
   },
-
 
   timeConverter: function (t) {
 
     //  Takes the current time in seconds and convert it to minutes and seconds (mm:ss).
     var minutes = Math.floor(t / 60);
     var seconds = t - (minutes * 60);
-
     if (seconds < 10) {
       seconds = "0" + seconds;
     }
-
     if (minutes === 0) {
       minutes = "00";
     }
-
     else if (minutes < 10) {
       minutes = "0" + minutes;
     }
-
     return minutes + ":" + seconds;
   }
 };
-
-
-
-
-
-
-
-
-
 
 
 
