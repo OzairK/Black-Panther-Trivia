@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Trivia</title>
+</head>
+
+<body>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <!-- <img src="https://www.naturalnews.com/wp-content/uploads/sites/91/2018/02/Marvel-Black-Panther.jpg" alt="Black Panther Movie Poster"> -->
+            </div>
+            <div class="col-sm-8">
+                <div id="game">
+                    <button type="button" class="btn btn-primary" id="start">Start</button>
+                    <div id="hideMe">
+                    <div id="display"></div>
+
+                    <div id="triviaDisplay"></div>
+                    <div id="A" class="answerChoice" data-selection-type="A"></div>
+                    <div id="B" class="answerChoice" data-selection-type="B"></div>
+                    <div id="C" class="answerChoice" data-selection-type="C"></div>
+                    <div id="D" class="answerChoice" data-selection-type="D"></div>
+                    </div>
+                    <div id="result"></div>
+                    <div id="score"></div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+    <script src="assets/javascript/app.js">
+    </script>
+</body>
+
+</html>

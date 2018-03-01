@@ -1,0 +1,44 @@
+.answerChoice:hover {
+    background-color: beige;
+}
+
+body {
+    background: url("https://www.naturalnews.com/wp-content/uploads/sites/91/2018/02/Marvel-Black-Panther.jpg") no-repeat center center fixed; ;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#triviaDisplay {
+    margin-top: 50px;
+}
+
+
+
+#score{
+    padding:50px;
+
+}
+
+#game{
+    
+    font-family: 'Roboto Slab', serif;
+    opacity: 0.9;
+    text-align: center;
+    font-size: 1.5em;
+    background-color: ghostwhite;
+    margin-top:60px;
+
+    
+}
+
+#display {
+    font-family: monospace;
+    font-size: 80px;
+    color: yellowgreen;
+    text-align: center;
+    background: rgb(100, 98, 98);
+    opacity: .99;
+   
+  }
