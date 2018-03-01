@@ -9,7 +9,8 @@ window.onload = function () {
       correctSelections++;
       $("#result").show();
       $("#result").text(`Good Job!!!`);
-      $("#score").html(`Corerct Answers: ${correctSelections} <br> Wrong answers: ${wrongSelections}`);    }
+      $("#score").html(`Corerct Answers: ${correctSelections} <br> Wrong answers: ${wrongSelections}`);
+    }
     else {
       wrongSelections++;
       $("#result").show();
@@ -17,12 +18,15 @@ window.onload = function () {
       $("#score").html(`Corerct Answers: ${correctSelections} <br> Wrong answers: ${wrongSelections}`);
     }
     questionNumber++;
-    $("#hideMe").hide();
+    $("#questionAndAnswersDiv").hide();
     if (questionArray.length > questionNumber) {
       setTimeout(displayNextQuestion, 3000);
     }
-    else{
-    $("#start").show();
+    else {
+      correctSelections = 0;
+      wrongSelections = 0;
+      $("#result").text("Great, Want to play again?");
+      $("#start").show();
     }
 
   });
@@ -38,7 +42,7 @@ function displayNextQuestion() {
   stopwatch.reset();
   stopwatch.start();
   $("#result").hide();
-  $("#hideMe").show();
+  $("#questionAndAnswersDiv").show();
 }
 
 var questionNumber = 0; // question1 = 0
@@ -80,9 +84,10 @@ var questionArray = [question0, question1, question2, question3, question4, ques
 
 
 function begin() {
-  questionNumber=0;
+  questionNumber = 0;
   questionArray[questionNumber].display();
   $("#start").hide();
+  $("#questionAndAnswersDiv").show();
   stopwatch.start();
 }
 
@@ -125,11 +130,24 @@ var stopwatch = {
     var convertedTime = stopwatch.timeConverter(stopwatch.time);
     $("#display").text(convertedTime);
     if (stopwatch.time === 0) {
-      stopwatch.reset();
-      questionNumber++;
-      questionArray[questionNumber].display();
       wrongSelections++;
-      $("#result").html(`ooops you ran out of time!<br> Corerct Answers: ${correctSelections} <br> Wrong answers: ${wrongSelections}`);
+      questionNumber++;
+    $("#questionAndAnswersDiv").hide();
+    $("#result").show();
+    $("#result").text(`Sorry you ran out of time`);
+    $("#score").html(`Corerct Answers: ${correctSelections} <br> Wrong answers: ${wrongSelections}`);
+    setTimeout(displayNextQuestion, 3000);
+
+      // stopwatch.reset();
+      // questionNumber++;
+      // questionArray[questionNumber].display();
+      // wrongSelections++;
+      
+      // $("#result").show();
+      // $("#result").text(`ooops you ran out of time!`);
+      // $("#score").html(`Correct Answers: ${correctSelections} <br> Wrong answers: ${wrongSelections}`);
+      // $("#result").text(`ooops you ran out of time!`);
+      // $("#score").html(`Correct Answers: ${correctSelections} <br> Wrong answers: ${wrongSelections}`);
     }
   },
 
