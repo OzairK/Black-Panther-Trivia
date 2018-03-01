@@ -1,17 +1,20 @@
 var correctSelections = 0;
 var wrongSelections = 0;
+var questionNumber = 0; 
+
+
 
 window.onload = function () {
-
-
-  $(".answerChoice").on("click", function () {
-    if ((questionArray[questionNumber].correctAnswer) === (this.getAttribute("data-selection-type"))) {  // $(this).data("slection-type")
+  $("#start").click(begin);                                                                              // run begin function once start is clicked
+ 
+  $(".answerChoice").on("click", function () {                                                           // run following code when an answer choice is picked
+    if ((questionArray[questionNumber].correctAnswer) === (this.getAttribute("data-selection-type"))) {  // has correct answer been selected?$(this).data("slection-type")     
       correctSelections++;
       $("#result").show();
       $("#result").text(`Good Job!!!`);
       $("#score").html(`Corerct Answers: ${correctSelections} <br> Wrong Answers: ${wrongSelections}`);
     }
-    else {
+    else {                                                                                               // has wrong answer been selected?
       wrongSelections++;
       $("#result").show();
       $("#result").text(`Wrong!!!`);
@@ -19,24 +22,35 @@ window.onload = function () {
     }
     questionNumber++;
     $("#questionAndAnswersDiv").hide();
-    if (questionArray.length > questionNumber) {
+    if (questionArray.length > questionNumber) {                                                         //game is not over yet, keep playing        
       setTimeout(displayNextQuestion, 3000);
     }
-    else {
+    else {                                                                                               //out of questions, game is over
       correctSelections = 0;
       wrongSelections = 0;
       $("#result").text("Great, Want to play again?");
       $("#start").show();
     }
-
   });
 
-
-  $("#start").click(begin)
+  $("#start").click(begin);
 
 };
 
-function displayNextQuestion() {
+function begin() {                                                                                      // set up initial trivia
+  questionNumber = 0;
+  stopwatch.stop();
+  stopwatch.reset();
+  stopwatch.start();
+  questionArray[questionNumber].display();
+  $("#start").hide();                                                                                   // already been clicked, hide it now
+  $("#result").empty();                                                         
+  $("#score").empty();
+  $("#questionAndAnswersDiv").show();
+
+}
+
+function displayNextQuestion() {                                                                        //to display next question usuall called by setTimer(3secs)
   questionArray[questionNumber].display();
   stopwatch.stop();
   stopwatch.reset();
@@ -45,15 +59,15 @@ function displayNextQuestion() {
   $("#questionAndAnswersDiv").show();
 }
 
-var questionNumber = 0; // question1 = 0
 
-function createQuestion(questionAsked, option1, option2, option3, option4, correctAnswer) {
+
+function createQuestion(questionAsked, option1, option2, option3, option4, correctAnswer) {           //creates objects for each of my questions
   var question = {
 
     correctAnswer: correctAnswer,
 
     display: function () {
-      $("#triviaDisplay").text(questionAsked); // @to-do: add if statements for cases with less that 4 options. ie option3&4 undefined
+      $("#triviaDisplay").text(questionAsked);                                                        // @to-do: add if statements for cases with less than 4 options. ie option3&4 undefined
       $("#A").text(`A: ${option1} `);
       $("#B").text(`B: ${option2} `);
       $("#C").text(`C: ${option3} `);
@@ -71,30 +85,15 @@ var question4 = createQuestion("What is the name of the actor that  plays Black 
 var question5 = createQuestion("Black panther has been in the Marvel universe longer then some expect, which X-Men member was Black Panther married to?", "Mystique", "Rogue", "Storm", "Jubilee", "C");
 var question6 = createQuestion("What is the name of Black Panther's sister?", "Shuri", "Laura", "Nakia", "Okoye", "A");
 
-
 var questionArray = [question0, question1, question2, question3, question4, question5, question6];
 
-
-
-function begin() {
-  questionNumber = 0;
-  stopwatch.stop();
-  stopwatch.reset();
-  stopwatch.start();
-  questionArray[questionNumber].display();
-  $("#start").hide();
-  $("#result").empty();
-  $("#score").empty();
-  $("#questionAndAnswersDiv").show();
-
-}
 
 
 var timeInterval;
 var clockRunning = false;
 
-//  Our stopwatch object.
-var stopwatch = {
+//  stop watch
+var stopwatch = {                                                                                     // handles the timer
   time: 30,
   reset: function () {
     stopwatch.time = 30;
@@ -115,23 +114,26 @@ var stopwatch = {
   },
 
 
-  decrament: function () {
+  decrament: function () {                                                                              
     stopwatch.time--;
     var convertedTime = stopwatch.timeConverter(stopwatch.time);
     $("#display").text(convertedTime);
-    if (stopwatch.time === 0) {
+    if (stopwatch.time === 0) {                                                                         // out of time!
     wrongSelections++;
     questionNumber++;
     $("#questionAndAnswersDiv").hide();
-      if (questionArray.length > questionNumber) {
+      if (questionArray.length > questionNumber) {                                                      // game is still going keep playing
         $("#result").show();
         $("#result").text(`Sorry you ran out of time`);
         $("#score").html(`Corerct Answers: ${correctSelections} <br> Wrong Answers: ${wrongSelections}`);
         setTimeout(displayNextQuestion, 3000);
       }
-      else {
+      else {                                                                                            //game is over
+        $("#score").html(`Corerct Answers: ${correctSelections} <br> Wrong Answers: ${wrongSelections}`);
+        setTimeout(displayNextQuestion, 3000);
         correctSelections = 0;
         wrongSelections = 0;
+        $("#result").show();
         $("#result").text("Great, Want to play again?");
         $("#start").show();
       }
